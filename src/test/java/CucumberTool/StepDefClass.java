@@ -1,4 +1,4 @@
-package CucumberTool;
+/*package CucumberTool;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,6 +22,8 @@ public class StepDefClass {
         driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+        driver.findElement(By.linkText("Continue anyway")).click();
+
     }
 
     @When("user enters valid username and valid password")
@@ -43,13 +45,20 @@ public class StepDefClass {
     @Then("user is successfully logged in")
     public void user_is_successfully_logged_in() {
         WebElement welcomeMessage = driver.findElement(By.id("welcome"));
-        if(welcomeMessage.isDisplayed()){
+        if (welcomeMessage.isDisplayed()) {
             System.out.println("Test case is passed");
-        }else{
+        } else {
             System.out.println("Test is failed");
         }
     }
 
+      @Then("user verify dashboard page")
+        public void user_verify_dashboard_page() {
+            // Write code here that turns the phrase above into concrete actions
+            throw new io.cucumber.java.PendingException();
+
+    }
 
 
-}
+    }
+*/
