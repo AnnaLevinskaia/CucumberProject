@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 
         //dryRun = false, //false - start execution again
         //tags="@sprint3 or @sprint1",
-        //tags = "@tc1101",
+        tags = "@tc1101",
         //to remove irrelevant information from console, you need to set monochrome to true
         monochrome = true,
         //to generate the report we need plugin of runner class
