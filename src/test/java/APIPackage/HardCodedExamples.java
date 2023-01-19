@@ -20,7 +20,7 @@ public class HardCodedExamples {
     String baseURI = RestAssured.baseURI = "http://hrm.syntaxtechs.net/syntaxapi/api";
 
     //we need to perform CRUD operation
-    String token="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzQwOTY2ODYsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY3NDEzOTg4NiwidXNlcklkIjoiNDgzNyJ9.sexG5LRlBkRjGgS1RawCxNXW_3ue5RxZ8E0wHbEGdO0";
+    String token="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzQxNTMwNzYsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY3NDE5NjI3NiwidXNlcklkIjoiNDgzNyJ9.Wd8_9fRHAeNM8uQPNx-78kIqzOV_i2UtqNFSvDj8Vlk";
 
     static String employee_id;
 
@@ -76,11 +76,11 @@ public class HardCodedExamples {
     }
 
     @Test
-    public void cupdateEmployee(){
-        RequestSpecification request=given().header("Authorization", token)
+    public void cupdateEmployee() {
+        RequestSpecification request = given().header("Authorization", token)
                 .header("Content-Type", "application/json").
                 body("{\n" +
-                        "  \"employee_id\": \""+ employee_id+"\",\n" +
+                        "  \"employee_id\": \"" + employee_id + "\",\n" +
                         "  \"emp_firstname\": \"Asma\",\n" +
                         "  \"emp_lastname\": \"Alfag\",\n" +
                         "  \"emp_middle_name\": \"ms\",\n" +
@@ -90,19 +90,33 @@ public class HardCodedExamples {
                         "  \"emp_job_title\": \"manager\"\n" +
                         "}");
 
-        Response response=request.when().put("/updateEmployee.php");
+        Response response = request.when().put("/updateEmployee.php");
 
         response.prettyPrint();
         //verification
         response.then().assertThat().statusCode(200);
         response.then().assertThat().body("Message", equalTo("Employee record Updated"));
+    }
 
-
-/*        @Test
+        @Test
         public void dgetUpdatedEmployee(){
 
-        }*/
+            RequestSpecification request = given().header("Authorization", token)
+                    .header("Content-Type", "application/json")
+                    .queryParam("employee_id", employee_id);
 
-    }
+            //to hit the point/to make the request which will return response
+            Response response=request.when().get("/getOneEmployee.php");
+
+            //System.out.println(response.asString());
+            response.prettyPrint(); //the same as line 30
+            //verifying the status code
+            response.then().assertThat().statusCode(200);
+
+            response.then().assertThat().body("employee.emp_job_title", equalTo("Manager"));
+
+        }
+
+
 
 }
