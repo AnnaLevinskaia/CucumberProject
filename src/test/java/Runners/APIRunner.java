@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         //features we use to provide the path of all the feature files
         features = "src/test/resources/features/", //one path for all features files
-        glue = "Steps",
+        glue = "APISteps",
         //dryRun = true it stops actual execution; it will quickly scan all the gherkin steps whether they are implemented or not
         //it is temporary solution
 
@@ -20,9 +20,9 @@ import org.junit.runner.RunWith;
         //to generate the report we need plugin of runner class
 
         plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json", "rerun:target/failed.txt"} //pretty keywords prints the steps in console to increase readability (more info)
-       //failed.txt file holds all the scenarios which are failed during the execution
+        //failed.txt file holds all the scenarios which are failed during the execution
 
 )
-public class SmokeRunner {
+public class APIRunner {
 
 }
