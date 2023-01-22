@@ -26,3 +26,8 @@ import org.junit.runner.RunWith;
 public class SmokeRunner {
 
 }
+
+
+//update hard code in Add employee steps line 172-173
+//verification
+//close connection in DB Utility
