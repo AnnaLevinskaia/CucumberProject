@@ -41,8 +41,14 @@ Feature: Add Employee
     |birgul   |MS        |ozgin     |
     |alina    |MS        |bob       |
 
-
   @exel
   Scenario: Adding multiple employees using exel file
     When user adds multiple employee from exel using "EmployeeData" and verify it
 
+  @db
+  Scenario: Adding employee and verify it is stored in database
+    And user enter "Mansoor" and "Raufi"
+    And user captures employee id
+    And user clicks on save button
+    Then employee added successfully
+    And added employee is displayed in database

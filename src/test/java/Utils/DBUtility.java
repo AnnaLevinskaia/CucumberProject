@@ -1,4 +1,4 @@
-package utils;
+package Utils;
 
 import Utils.ConfigReader;
 import io.cucumber.java.it.Ma;
@@ -31,21 +31,10 @@ public class DBUtility {
 
         }catch (SQLException e){
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-            }catch (SQLException e){
-                e.printStackTrace();
-            }
         }
 
         return rset;
-    }
+    } //we need close the connection
 
     //method return an object of result set metadata
     public static ResultSetMetaData getRsetMetaData(String query){
@@ -69,14 +58,18 @@ public class DBUtility {
         Map<String, String> mapData;
 
         try{
+            //iterates over the rows
             while (rset.next()) {
                 mapData = new LinkedHashMap<>();
+                //iterates over the columns
                 for (int i = 1; i <= rSetMetaData.getColumnCount(); i++) {
                     String key = rSetMetaData.getColumnName(i);
                     String value = rset.getString(key);
 
+                    //store data from every column into a map
                     mapData.put(key, value);
                 }
+                //we store map with Data into a list
                 listFromRset.add(mapData);
             }
         }catch(SQLException e){
