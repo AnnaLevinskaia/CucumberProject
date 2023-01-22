@@ -20,3 +20,11 @@ Feature: API workflow test
     And the retrieved data at "employee" object should match with the data used for creating the employee
       |emp_firstname|emp_lastname|emp_middle_name|emp_gender|emp_birthday|emp_status|emp_job_title|
       |Bob          |Duck        |ms             |Female    |1990-09-10  |confirmed |QA           |
+
+  @api
+  Scenario: API test case for creating the employee using json body
+    Given a request is prepared for creating an employee by passing json body
+    When a POST call is made to create an employee
+    Then the status code for creating an employee is 201
+    And the response body contains key "Message" and value "Employee Created"
+    And the employee id "Employee.employee_id" is store as global to be used for other request
