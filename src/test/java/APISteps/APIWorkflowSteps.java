@@ -121,4 +121,21 @@ public class APIWorkflowSteps {
 
     }
 
+    @Given("a request is prepared for updating employee with dynamic body {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
+    public void a_request_is_prepared_for_updating_employee_with_dynamic_body(String firstname, String lastname, String middlename, String gender, String dob, String empStatus, String jobTitle, String emp_id) {
+
+        emp_id=employee_id;
+        request=given()
+                .header(APIConstants.Header_Key_Content_Type, APIConstants.Header_Value_Content_Type)
+                .header(APIConstants.Header_Key_Authorization, GenerateTokenSteps.token)
+                .body(APIPayloadConstant.updateEmployeeFullDetails(firstname, lastname,middlename,gender,dob,empStatus,jobTitle, emp_id));
+
+
+    }
+
+    @When("a POST call is made to update an employee")
+    public void a_post_call_is_made_to_update_an_employee() {
+        response=request.when().post(APIConstants.UPDATE_EMPLOYEE_URI);
+        response.prettyPrint();
+    }
 }

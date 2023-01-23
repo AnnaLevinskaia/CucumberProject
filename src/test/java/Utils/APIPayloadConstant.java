@@ -44,6 +44,21 @@ public class APIPayloadConstant {
         return obj.toString();
     }
 
+    public static String updateEmployeeFullDetails(String firstname, String lastname, String middlename,
+                                                   String gender, String dob, String empStatus, String jobTitle, String emp_id){
+        JSONObject obj=new JSONObject();
+        obj.put("emp_firstname", firstname);
+        obj.put("emp_lastname", lastname);
+        obj.put("emp_middle_name", middlename);
+        obj.put("emp_gender", gender);
+        obj.put("emp_birthday", dob);
+        obj.put("emp_status", empStatus);
+        obj.put("emp_job_title", jobTitle);
+        obj.put("employee_id", emp_id);
+
+        return obj.toString();
+    }
+
     public static String adminPayload(){
         String adminPayload="{\n" +
                 "  \"email\": \"batch1444444444@testt.com\",\n" +
