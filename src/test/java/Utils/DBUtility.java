@@ -26,8 +26,8 @@ public class DBUtility {
                     ConfigReader.getPropertyValue("dbUsername"),
                     ConfigReader.getPropertyValue("dbPassword"));
 
-            statement=connection.createStatement();
-            rset=statement.executeQuery(sqlQuery);
+            statement=connection.createStatement(); //create a statement to execute the query
+            rset=statement.executeQuery(sqlQuery); //execute the query and storing the result
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -42,7 +42,8 @@ public class DBUtility {
         rSetMetaData=null;
 
         try {
-            rSetMetaData=rset.getMetaData();
+            rSetMetaData=rset.getMetaData(); //get the data in tabular format that we can
+            //use these in column keys and value retrieval operation
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,16 +56,17 @@ public class DBUtility {
         rSetMetaData=getRsetMetaData(query);
 
         List<Map<String, String>> listFromRset = new ArrayList<>();
-        Map<String, String> mapData;
+        Map<String, String> mapData; //to store 1 map
 
         try{
             //iterates over the rows
             while (rset.next()) {
                 mapData = new LinkedHashMap<>();
-                //iterates over the columns
+                //iterates over the columns, 0 - header
                 for (int i = 1; i <= rSetMetaData.getColumnCount(); i++) {
                     String key = rSetMetaData.getColumnName(i);
-                    String value = rset.getString(key);
+                    String value = rset.getString(key); //return the value against the key
+                    //value is located in rset not in tabulate format, in String format
 
                     //store data from every column into a map
                     mapData.put(key, value);
