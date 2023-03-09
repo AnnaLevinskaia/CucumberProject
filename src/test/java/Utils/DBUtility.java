@@ -13,13 +13,14 @@ public class DBUtility {
 
     private static ResultSet rset;
     private static ResultSetMetaData rSetMetaData;
+    static Connection connection=null;
+    static Statement statement=null;
 
 //this method create connection to the database, execute query
 //and return object of the Resultset
     public static ResultSet getResultSet(String sqlQuery){
 
-        Connection connection=null;
-        Statement statement=null;
+
         try {
             connection = DriverManager.getConnection(
                     ConfigReader.getPropertyValue("dbUrl"), //or we can pass it as a parameter
@@ -34,7 +35,7 @@ public class DBUtility {
         }
 
         return rset;
-    } //we need close the connection
+    }
 
     //method return an object of result set metadata
     public static ResultSetMetaData getRsetMetaData(String query){
@@ -56,7 +57,7 @@ public class DBUtility {
         rSetMetaData=getRsetMetaData(query);
 
         List<Map<String, String>> listFromRset = new ArrayList<>();
-        Map<String, String> mapData; //to store 1 map
+        Map<String, String> mapData; //to store 1 map, and put it in listfromset, otherwise it will be overriden
 
         try{
             //iterates over the rows
@@ -64,7 +65,7 @@ public class DBUtility {
                 mapData = new LinkedHashMap<>();
                 //iterates over the columns, 0 - header
                 for (int i = 1; i <= rSetMetaData.getColumnCount(); i++) {
-                    String key = rSetMetaData.getColumnName(i);
+                    String key = rSetMetaData.getColumnName(i); //holds info about columns name only
                     String value = rset.getString(key); //return the value against the key
                     //value is located in rset not in tabulate format, in String format
 
@@ -76,8 +77,42 @@ public class DBUtility {
             }
         }catch(SQLException e){
             e.printStackTrace();
+        }finally {
+            DBUtility.closeResultSet(rset);
+            DBUtility.closeStatement(statement);
+            DBUtility.closeConnection(connection);
         }
         return listFromRset;
+    }
+
+    public static void closeResultSet(ResultSet rset){
+        if(rset!=null){
+            try {
+                rset.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeStatement(Statement statement){
+        if(statement!=null){
+            try {
+                statement.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeConnection(Connection connection){
+        if(connection!=null){
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
 }
